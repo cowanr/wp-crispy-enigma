@@ -135,14 +135,27 @@ function ce_to_do_due_field() {
 }
 add_action( 'post_submitbox_misc_actions', 'ce_to_do_due_field' );
 
-function ce_to_do_validate( $post_id, $post_data) {
+function ce_to_do_save( $post_id ) {
 
-	if ( "ce-to-do" != get_post_type($post_id)) return;
+	if( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_AJAX') && DOING_AJAX ) || isset( $_REQUEST['bulk_edit'] ) ) {
+		return;
+	}
+	
+	// Clear Due Date
+	if($_POST['hidden_ce_to_do_clear'] == 1) {
+		delete_post_meta( $post_id, 'ce_to_do_due_date' );
+		return;
+	}
 
 	if( empty( $_POST['ce_to_do_month'] ) || empty($_POST['ce_to_do_day']) || empty($_POST['ce_to_do_year'])  ) {
 		return;
 	}
 
+	// Validate Due Date.
 	$month = absint($_POST['ce_to_do_month']);
 	$day = absint($_POST['ce_to_do_day']);
 	$year = absint($_POST['ce_to_do_year']);
@@ -161,44 +174,14 @@ function ce_to_do_validate( $post_id, $post_data) {
 
 	if($error) {
 		set_transient('ce_to_do_save_post_errors_' . $post_id . '_' . get_current_user_id(), 'error', 60);
-	}
-}
-add_action( 'pre_post_update', 'ce_to_do_validate', 10, 2 );
-
-function ce_to_do_save( $post_id, $post, $update ) {
-
-	$transient = 'ce_to_do_save_post_errors_' .  $post_id . '_' . get_current_user_id();
-	if ( 'error' === get_transient( $transient ) ) {
 		return;
 	}
 
-	if( ! current_user_can( 'edit_post', $post_id ) ) {
-		return;
-	}
-
-	if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_AJAX') && DOING_AJAX ) || isset( $_REQUEST['bulk_edit'] ) ) {
-		return;
-	}
-
-	// Clear Due Date
-	if($_POST['hidden_ce_to_do_clear'] == 1) {
-		delete_post_meta( $post_id, 'ce_to_do_due_date' );
-		return;
-	}
-
-	// Set new due date
-	if( empty( $_POST['ce_to_do_month'] ) || empty($_POST['ce_to_do_day']) || empty($_POST['ce_to_do_year'])  ) {
-		return;
-	}
-
-	$month = absint($_POST['ce_to_do_month']);
-	$day = absint($_POST['ce_to_do_day']);
-	$year = absint($_POST['ce_to_do_year']);
-	
+	// Save	
 	update_post_meta( $post_id, 'ce_to_do_due_date', $month . '-' . $day . '-' . $year );
 	return;
 }
-add_action( 'save_post_ce-to-do', 'ce_to_do_save', 10, 3 );
+add_action( 'save_post_ce-to-do', 'ce_to_do_save', 10, 1 );
 
 function ce_to_do_error_message() {
 	global $post;
@@ -206,7 +189,7 @@ function ce_to_do_error_message() {
 	if ( 'error' === get_transient( $transient ) ) {
   		echo '
 		    <div class="error">
-		        <p>' . __( 'Please enter a valid date in the format of mm/dd/yyyy and that is not in the past!', 'twentynineteen' ) . '
+		        <p>' . __( 'Please enter a valid due date in the format of mm/dd/yyyy and that is not in the past!', 'twentynineteen' ) . '
 		    </p>
 		    </div>';
 		delete_transient($transient);
@@ -219,44 +202,33 @@ function ce_to_do_updated_messages( $messages ) {
 
 	global $post;
 
-	$transient = 'ce_to_do_save_post_errors_' .  $post->ID . '_' . get_current_user_id();
-	if ( 'error' === get_transient( $transient ) ) {
-		$messages['post'] = array();
-	
-    } else {
+	if($post->post_type == 'ce-to-do') {
 
-		$messages['ce-to-do'] = array(
+		$permalink = get_permalink( $post->ID );
+
+		$view_link = sprintf( ' <a href="%s">%s</a>', esc_url( $permalink ), __( 'View To-Do', 'twentynineteen' ) );
+
+		$preview_permalink = add_query_arg( 'preview', 'true', $permalink );
+		$preview_link = sprintf( ' <a target="_blank" href="%s">%s</a>', esc_url( $preview_permalink ), __( 'Preview To-Do', 'twentynineteen' ) );
+
+		$messages['post'] = array(
 			0  => '', // Unused. Messages start at index 1.
-			1  => __( 'To-Do updated.', 'twentynineteen' ),
+			1  => __( 'To-Do updated.', 'twentynineteen' ) . ' ' . $view_link,
 			2  => __( 'Custom field updated.', 'twentynineteen' ),
 			3  => __( 'Custom field deleted.', 'twentynineteen' ),
 			4  => __( 'To-Do updated.', 'twentynineteen' ),
 			/* translators: %s: date and time of the revision */
 			5  => isset( $_GET['revision'] ) ? sprintf( __( 'To-Do restored to revision from %s', 'twentynineteen' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-			6  => __( 'To-Do published.', 'twentynineteen' ),
+			6  => __( 'To-Do published.', 'twentynineteen' ) . ' ' . $view_link,
 			7  => __( 'To-Do saved.', 'twentynineteen' ),
-			8  => __( 'To-Do submitted.', 'twentynineteen' ),
+			8  => __( 'To-Do submitted.', 'twentynineteen' ) . ' ' . $preview_link,
 			9  => sprintf(
 				__( 'To-Do scheduled for: <strong>%1$s</strong>.', 'twentynineteen' ),
 				// translators: Publish box date format, see http://php.net/date
 				date_i18n( __( 'M j, Y @ G:i', 'twentynineteen' ), strtotime( $post->post_date ) )
-			),
-			10 => __( 'To-Do draft updated.', 'twentynineteen' )
-		);
-
-
-		$permalink = get_permalink( $post->ID );
-
-		$view_link = sprintf( ' <a href="%s">%s</a>', esc_url( $permalink ), __( 'View To-Do', 'twentynineteen' ) );
-		$messages[ 'ce-to-do' ][1] .= $view_link;
-		$messages[ 'ce-to-do' ][6] .= $view_link;
-		$messages[ 'ce-to-do' ][9] .= $view_link;
-
-		$preview_permalink = add_query_arg( 'preview', 'true', $permalink );
-		$preview_link = sprintf( ' <a target="_blank" href="%s">%s</a>', esc_url( $preview_permalink ), __( 'Preview To-Do', 'twentynineteen' ) );
-		$messages[ 'ce-to-do' ][8]  .= $preview_link;
-		$messages[ 'ce-to-do' ][10] .= $preview_link;
-		
+			) . ' ' . $view_link,
+			10 => __( 'To-Do draft updated.', 'twentynineteen' ) . ' ' . $preview_link
+		);		
 	}
 	return $messages;
 }
