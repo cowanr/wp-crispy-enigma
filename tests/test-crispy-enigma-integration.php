@@ -52,7 +52,7 @@ class CrispyEnigmaIntegrationTests extends WP_UnitTestCase {
 
 	public function test_create_to_do_with_valid_due_date() {
 			
-		//Spoof custom field default settings;
+		//Spoof custom field settings;
         $_POST['ce_to_do_month'] = date('n');
 		$_POST['ce_to_do_day'] = date('j');
 		$_POST['ce_to_do_year'] = date('Y');
@@ -68,7 +68,7 @@ class CrispyEnigmaIntegrationTests extends WP_UnitTestCase {
 
 	public function test_create_to_do_with_invalid_due_date() {
 			
-		//Spoof custom field default settings;
+		//Spoof custom field settings;
         $_POST['ce_to_do_month'] = 1;
 		$_POST['ce_to_do_day'] =  'ss';
 		$_POST['ce_to_do_year'] = 2018;
@@ -108,14 +108,14 @@ class CrispyEnigmaIntegrationTests extends WP_UnitTestCase {
 
 		$meta = get_post_meta($factoryId, self::DUE_DATE_FIELD, true);
 
-        //test the meta value was not changed
+        //test the meta value was cleared
         $this->assertEquals($meta, '');
 
 	}
 
 	public function test_to_do_clear_due_date_with_invalid_date() {
 			
-		//Spoof custom field default settings;
+		//Spoof custom field settings;
         $_POST['ce_to_do_month'] = date('n');
 		$_POST['ce_to_do_day'] = date('j');
 		$_POST['ce_to_do_year'] = date('Y');
@@ -128,14 +128,16 @@ class CrispyEnigmaIntegrationTests extends WP_UnitTestCase {
         //test the meta value was updated correctly
         $this->assertEquals($meta, $_POST['ce_to_do_month'] . '-' . $_POST['ce_to_do_day'] . '-' . $_POST['ce_to_do_year']);
 
+        //Spoof custom field settings;
 		$_POST['ce_to_do_year'] = date('2018');
         $_POST['hidden_ce_to_do_clear'] = 1;
+        
         $post = get_post($factoryId, 'ARRAY_A');
 		$factoryId = $this->factory()->post->update_object($factoryId, $post);   
 
 		$meta = get_post_meta($factoryId, self::DUE_DATE_FIELD, true);
 
-        //test the meta value was not changed
+        //test the meta value was cleared
         $this->assertEquals($meta, '');
 
 	}
