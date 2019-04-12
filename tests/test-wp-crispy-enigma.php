@@ -1,11 +1,11 @@
 <?php
 /**
- * Class wpCrispyEnigmaIntegrationTests
+ * Class CrispyEnigmaIntegrationTests
  *
  * @package Wp_Crispy_Enigma
  */
 
-class wpCrispyEnigmaIntegrationTests extends WP_UnitTestCase {
+class CrispyEnigmaIntegrationTests extends WP_UnitTestCase {
 
 	const POST_TYPE = 'ce-to-do';
 	const PLUGIN = 'wp-crispy-enigma/wp-crispy-enigma.php';
