@@ -69,7 +69,7 @@ function custom_ce_to_do_init() {
 add_action( 'init', 'custom_ce_to_do_init');
 
 function ce_to_do_scripts() {
-	wp_enqueue_script( 'ce-to-do-expiration', '/wp-content/plugins/wp-crispy-enigma/js/script.js' );
+	wp_enqueue_script( 'ce-to-do', '/wp-content/plugins/wp-crispy-enigma/js/script.js' );
 }
 add_action( 'load-post-new.php', 'ce_to_do_scripts' );
 add_action( 'load-post.php', 'ce_to_do_scripts' );
