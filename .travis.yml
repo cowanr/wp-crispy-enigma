@@ -35,9 +35,6 @@ script:
   # Run just unit tests first -- if they fail we never spend the time building the environment for integration tests
   - composer unit-tests
 
-  # Install full test environment using composer script
-  - composer wp-install
-
   # Run integration tests
   - composer wp-tests
 
