@@ -29,19 +29,18 @@ before_script:
     else
       echo "xdebug.ini does not exist"
     fi
-  - |
-    if [[ ! -z "$WP_VERSION" ]] ; then
-      bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-      composer global require "phpunit/phpunit=4.8.*|5.7.*"
-    fi
-  - |
-    if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      composer global require wp-coding-standards/wpcs
-      phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs
-    fi
+
 
 script:
-  - |
-    if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      phpcs
-    fi
+  # Run just unit tests first -- if they fail we never spend the time building the environment for integration tests
+  - composer unit-tests
+
+  # Install full test environment using composer script
+  - composer wp-install
+
+  # Run integration tests
+  - composer wp-tests
+
+after_sucess:
+  # Run coverage
+  - vendor/bin/phpunit --coverage-clover=coverage.xml

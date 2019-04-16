@@ -5,30 +5,20 @@
  * @package Wp_Crispy_Enigma
  */
 
+// define test environment
+define( 'CE_PHPUNIT', true );
+
+// define fake ABSPATH
+if ( ! defined( 'ABSPATH' ) ) {
+	define( 'ABSPATH', sys_get_temp_dir() );
+}
+// define fake PLUGIN_ABSPATH
+if ( ! defined( 'CE_ABSPATH' ) ) {
+	define( 'CE_ABSPATH', dirname( dirname( __FILE__ ) ) );
+}
+
 // Include the mock library
-require_once( dirname( dirname(__FILE__) ) . '/vendor/autoload.php');
+require_once __DIR__ . '/../vendor/autoload.php';
 
-$_tests_dir = getenv( 'WP_TESTS_DIR' );
-
-if ( ! $_tests_dir ) {
-	$_tests_dir = rtrim( sys_get_temp_dir(), '/\\' ) . '/wordpress-tests-lib';
-}
-
-if ( ! file_exists( $_tests_dir . '/includes/functions.php' ) ) {
-	echo "Could not find $_tests_dir/includes/functions.php, have you run bin/install-wp-tests.sh ?" . PHP_EOL; // WPCS: XSS ok.
-	exit( 1 );
-}
-
-// Give access to tests_add_filter() function.
-require_once $_tests_dir . '/includes/functions.php';
-
-/**
- * Manually load the plugin being tested.
- */
-function _manually_load_plugin() {
-	require dirname( dirname( __FILE__ ) ) . '/wp-crispy-enigma.php';
-}
-tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
-
-// Start up the WP testing environment.
-require $_tests_dir . '/includes/bootstrap.php';
+// Include the class for PluginTestCase
+require_once __DIR__ . '/PluginTestCase.php';

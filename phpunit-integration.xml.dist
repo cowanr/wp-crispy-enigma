@@ -1,15 +1,16 @@
 <?xml version="1.0"?>
 <phpunit
-	bootstrap="tests/bootstrap.php"
+	bootstrap="tests/bootstrap-integration.php"
 	backupGlobals="false"
 	colors="true"
+	coverage="true"
 	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
 	>
 	<testsuites>
-		<testsuite name="unit" >
-			<directory prefix="test-unit" suffix=".php">./tests/</directory>
+		<testsuite name="integration" >
+			<directory prefix="test-integration" suffix=".php">./tests/</directory>
 		</testsuite>
 	</testsuites>
 	<log type="coverage-clover" target="clover.xml"/>
