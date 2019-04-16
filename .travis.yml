@@ -30,7 +30,6 @@ before_script:
       echo "xdebug.ini does not exist"
     fi
 
-
 script:
   # Run just unit tests first -- if they fail we never spend the time building the environment for integration tests
   - composer unit-tests
