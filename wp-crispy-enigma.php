@@ -15,7 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once "/includes/todo.php";
+require_once __DIR__ . '/includes/todo.php';
+
 
 $todo = new CE_To_Do();
 $todo->init();

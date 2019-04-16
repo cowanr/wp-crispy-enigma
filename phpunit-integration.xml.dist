@@ -3,6 +3,7 @@
 	bootstrap="tests/bootstrap-integration.php"
 	backupGlobals="false"
 	colors="true"
+	coverage="true"
 	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
