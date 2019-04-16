@@ -1,10 +1,10 @@
 {
     "require": {
         "brain/monkey": "2.*"
-    }
-},
-"scripts" : {
-    "unit-tests": "phpunit --testsuite=unit",
-    "wp-install": "bash ./bin/install-docker.sh",
-    "wp-tests": "docker-compose run --rm wordpress_phpunit phpunit --configuration phpunit-integration.xml.dist"
+    },
+	"scripts" : {
+    	"unit-tests": "phpunit --testsuite=unit",
+    	"wp-install": "bash ./bin/install-docker.sh",
+    	"wp-tests": "docker-compose run --rm wordpress_phpunit phpunit --configuration phpunit-integration.xml.dist"
+	}
 }
