@@ -18,7 +18,7 @@ class CrispyEnigmaUnitTests extends PluginTestCase {
         parent::tearDown();
     }
 
-	public function testPublicInit() {
+	public function testInit() {
 
 		// validate specific register actication
 		Functions\expect('register_activation_hook')
@@ -27,23 +27,6 @@ class CrispyEnigmaUnitTests extends PluginTestCase {
         // Since testing plugin return false for any is admin check
         Functions\when( 'is_admin' )
             ->justReturn( false );
-
-        $todo = new CE_To_Do();
-        $todo->init();
-
-        $this->assertFalse( has_action('load-post-new.php', 'CE_To_Do->admin_scripts()') );
-        $this->assertTrue( has_action('init', 'CE_To_Do->custom_post_type()') );
-    }
-
-    public function testAdminInit() {
-
-        // validate specific register actication
-        Functions\expect('register_activation_hook')
-          ->once();
-
-        // Since testing plugin return false for any is admin check
-        Functions\when( 'is_admin' )
-            ->justReturn( true );
 
         $todo = new CE_To_Do();
         $todo->init();

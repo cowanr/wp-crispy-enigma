@@ -13,16 +13,15 @@ class CE_To_Do {
 		
 		register_activation_hook( __FILE__, [ $this,  'rewrite_flush' ] );
 		
-		if(is_admin()) {
-			add_action( 'load-post-new.php', [ $this, 'admin_scripts' ] );
-			add_action( 'load-post.php', [ $this, 'admin_scripts' ] );
-			add_action( 'post_submitbox_misc_actions', [ $this, 'due_field' ] );
-			add_action( 'save_post_ce-to-do',  [ $this, 'save' ] , 10, 1 );
-			add_action( 'admin_notices', [ $this, 'error_message' ] );
-			add_filter( 'post_updated_messages',  [ $this, 'updated_messages' ] );
-			add_filter( 'manage_ce-to-do_posts_columns',  [ $this, 'set_custom_edit_columns' ] );
-			add_action( 'manage_ce-to-do_posts_custom_column' ,  [ $this, 'custom_column' ], 10, 2 );
-		}
+		add_action( 'load-post-new.php', [ $this, 'admin_scripts' ] );
+		add_action( 'load-post.php', [ $this, 'admin_scripts' ] );
+		add_action( 'post_submitbox_misc_actions', [ $this, 'due_field' ] );
+		add_action( 'save_post_ce-to-do',  [ $this, 'save' ] , 10, 1 );
+		add_action( 'admin_notices', [ $this, 'error_message' ] );
+		add_filter( 'post_updated_messages',  [ $this, 'updated_messages' ] );
+		add_filter( 'manage_ce-to-do_posts_columns',  [ $this, 'set_custom_edit_columns' ] );
+		add_action( 'manage_ce-to-do_posts_custom_column' ,  [ $this, 'custom_column' ], 10, 2 );
+	
 	}
 
 	public function custom_post_type() {
