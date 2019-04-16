@@ -4,7 +4,6 @@
     },
 	"scripts" : {
     	"unit-tests": "phpunit --testsuite=unit",
-    	"wp-install": "bash ./bin/install-docker.sh",
-    	"wp-tests": "docker-compose run --rm wordpress_phpunit phpunit --configuration phpunit-integration.xml.dist"
+    	"wp-tests": "phpunit --configuration phpunit-integration.xml.dist --testsuite=integration"
 	}
 }
