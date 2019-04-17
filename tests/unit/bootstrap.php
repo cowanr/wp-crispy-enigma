@@ -14,11 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 // define fake PLUGIN_ABSPATH
 if ( ! defined( 'CE_ABSPATH' ) ) {
-	define( 'CE_ABSPATH', dirname( dirname( __FILE__ ) ) );
+	define( 'CE_ABSPATH', dirname( dirname( dirname( __FILE__ ) ) ) );
 }
 
 // Include the mock library
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 // Include the class for PluginTestCase
 require_once __DIR__ . '/PluginTestCase.php';
