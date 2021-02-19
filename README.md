@@ -43,7 +43,7 @@ Introductory how-to articles. Was a good initial exposure to unit testing. Ended
 
 ## Slides
 
-###WordPress
+### WordPress
 
 One slide to introduce WordPress and specifically what a plugin is in WordPress. Will also mention the importance of actions and filters since that was one of the factors in deciding on the mock testing library.
 
