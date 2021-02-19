@@ -65,6 +65,8 @@ One to introduce the concept of a mock library and a brief overview of the Brain
 
 ## Demo
 
+  https://youtu.be/noLsMcfZLtE
+
 * Briefly walk through how I configured my local environment.
 
 * Highlight the functionality that the plugin added to WordPress.
