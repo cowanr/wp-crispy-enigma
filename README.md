@@ -21,20 +21,20 @@ A mock WP library that allowed the tests to be run without a WordPress installat
 
 The following were articles used as a resource for the demo.
 
-Mock Library for unit tests in WordPress
+### Mock Library for unit tests in WordPress
 
 https://swas.io/blog/wordpress-plugin-unit-test-with-brainmonkey/
 
 Describes how to create and run unit tests with a mock library. I used it as a starting point for my own unit test with the brain monkey mock library. 
 
-CI Integration for WordPress Plugins and Automated testing
+### CI Integration for WordPress Plugins and Automated testing
 
 https://torquemag.io/2018/06/advanced-oop-for-wordpress-part-6-continuous-integration-for-
 wordpress-plugins/
 
 Describes how to use Travis CI for WordPress Plugins as well as more advanced techniques then most blog posts on the subject. Used it to familiarize myself with how he automated unit and integrations tests with Travis CI.
 
-Unit Testing WordPress Plugins with PHPUnit
+### Unit Testing WordPress Plugins with PHPUnit
 
 https://premium.wpmudev.org/blog/unit-testing-wordpress-plugins-phpunit/
 https://premium.wpmudev.org/blog/vvv-wordpress-development/
@@ -43,23 +43,23 @@ Introductory how-to articles. Was a good initial exposure to unit testing. Ended
 
 ## Slides
 
-WordPress
+###WordPress
 
 One slide to introduce WordPress and specifically what a plugin is in WordPress. Will also mention the importance of actions and filters since that was one of the factors in deciding on the mock testing library.
 
-PHPUnit
+### PHPUnit
 
 One slide to introduce PHPUnit. Show some example code and point out the similarities to JUnit.
 
-WordPress PHPUnit Tests
+### WordPress PHPUnit Tests
 
 One slide to introduce the WordPress Testing library built on top of phpunit.
 
-WP-CLI
+### WP-CLI
 
 One slide to introduce WP CLI and to briefly cover the wp scaffolding command.
 
-Brain Monkey
+### Brain Monkey
 
 One to introduce the concept of a mock library and a brief overview of the Brain Monkey.
 
