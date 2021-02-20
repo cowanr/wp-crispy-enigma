@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.com/cowanr/wp-crispy-enigma.svg?branch=master)](https://travis-ci.com/cowanr/wp-crispy-enigma)
 
-# wp-crispy-enigma
+# Unit and Integration Testing for a WordPress Plugin
 
-Ryan Cowan - SENG6245001201930 (SENG 6245, Software Construction, Spring 2019
+Ryan Cowan - SENG 6245, Software Construction, Spring 2019
 
 Presentation - https://youtu.be/noLsMcfZLtE
 
