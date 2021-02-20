@@ -3,6 +3,7 @@
 # wp-crispy-enigma
 
 Ryan Cowan - SENG6245001201930 (SENG 6245, Software Construction, Spring 2019
+Presentation - https://youtu.be/noLsMcfZLtE
 
 ## Resources
 
@@ -64,8 +65,6 @@ One slide to introduce WP CLI and to briefly cover the wp scaffolding command.
 One to introduce the concept of a mock library and a brief overview of the Brain Monkey.
 
 ## Demo
-
-  https://youtu.be/noLsMcfZLtE
 
 * Briefly walk through how I configured my local environment.
 
