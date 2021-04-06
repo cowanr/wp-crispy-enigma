@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/cowanr/wp-crispy-enigma.svg?branch=master)](https://travis-ci.com/cowanr/wp-crispy-enigma)
+[![Build Status](https://travis-ci.com/cowanr/wp-plugin-unit-testing-demo.svg?branch=master)](https://travis-ci.com/github/cowanr/wp-plugin-unit-testing-demo)
 
 # Unit and Integration Testing for a WordPress Plugin
 
@@ -27,7 +27,7 @@ The following were articles used as a resource for the demo.
 
 https://swas.io/blog/wordpress-plugin-unit-test-with-brainmonkey/
 
-Describes how to create and run unit tests with a mock library. I used it as a starting point for my own unit test with the brain monkey mock library. 
+Describes how to create and run unit tests with a mock library. I used it as a starting point for my own unit test with the brain monkey mock library.
 
 ### CI Integration for WordPress Plugins and Automated testing
 
@@ -78,5 +78,3 @@ One to introduce the concept of a mock library and a brief overview of the Brain
 * Provide an overview of the integration tests
 
 * Successfully run unit and integration tests and show a successful build in Travis CI.
-
-
